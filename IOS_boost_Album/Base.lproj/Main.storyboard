@@ -37,6 +37,9 @@
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FGR-8F-law">
                                                     <rect key="frame" x="0.0" y="0.0" width="210" height="165"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="165" id="wIt-y3-B1R"/>
+                                                    </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57I-DM-Lfm">
                                                     <rect key="frame" x="0.0" y="170" width="210" height="21"/>
@@ -45,23 +48,24 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9i-Iw-wpb">
-                                                    <rect key="frame" x="0.0" y="196" width="42" height="21"/>
+                                                    <rect key="frame" x="0.0" y="196" width="210" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                         </view>
+                                        <color key="backgroundColor" red="0.84465640779999995" green="0.51457053419999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="57I-DM-Lfm" firstAttribute="top" secondItem="FGR-8F-law" secondAttribute="bottom" constant="5" id="5eQ-GG-MGA"/>
-                                            <constraint firstAttribute="trailing" secondItem="FGR-8F-law" secondAttribute="trailing" id="B3J-ny-PkW"/>
-                                            <constraint firstAttribute="trailing" secondItem="S9i-Iw-wpb" secondAttribute="trailing" constant="168" id="EnH-k2-m75"/>
+                                            <constraint firstAttribute="trailing" secondItem="FGR-8F-law" secondAttribute="trailing" id="LIY-ww-Fhx"/>
                                             <constraint firstItem="S9i-Iw-wpb" firstAttribute="leading" secondItem="Ct5-Wv-jC5" secondAttribute="leading" id="QNe-f1-Daw"/>
+                                            <constraint firstItem="57I-DM-Lfm" firstAttribute="top" secondItem="FGR-8F-law" secondAttribute="bottom" constant="5" id="TnL-5n-Ocn"/>
                                             <constraint firstAttribute="bottom" secondItem="S9i-Iw-wpb" secondAttribute="bottom" constant="8" id="ZY2-xs-vXP"/>
                                             <constraint firstItem="57I-DM-Lfm" firstAttribute="leading" secondItem="Ct5-Wv-jC5" secondAttribute="leading" id="ed7-hk-kbY"/>
-                                            <constraint firstItem="FGR-8F-law" firstAttribute="top" secondItem="Ct5-Wv-jC5" secondAttribute="top" id="lwy-ek-yfa"/>
-                                            <constraint firstItem="FGR-8F-law" firstAttribute="leading" secondItem="Ct5-Wv-jC5" secondAttribute="leading" id="mlk-9n-AW6"/>
+                                            <constraint firstItem="FGR-8F-law" firstAttribute="leading" secondItem="Ct5-Wv-jC5" secondAttribute="leading" id="fgr-9u-fKM"/>
+                                            <constraint firstAttribute="trailing" secondItem="S9i-Iw-wpb" secondAttribute="trailing" id="hmD-FV-wQJ"/>
                                             <constraint firstAttribute="trailing" secondItem="57I-DM-Lfm" secondAttribute="trailing" id="r96-wb-b5c"/>
+                                            <constraint firstItem="FGR-8F-law" firstAttribute="top" secondItem="Ct5-Wv-jC5" secondAttribute="top" id="unG-gr-4ZC"/>
                                             <constraint firstItem="S9i-Iw-wpb" firstAttribute="top" secondItem="57I-DM-Lfm" secondAttribute="bottom" constant="5" id="xzP-Ze-Y91"/>
                                         </constraints>
                                         <connections>
@@ -73,6 +77,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="kKl-nn-N2M"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="86s-x2-r9N"/>
                                 </connections>
                             </collectionView>
                         </subviews>
@@ -86,15 +91,18 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="x7Q-WL-RVz"/>
+                    <connections>
+                        <outlet property="collectionView" destination="odK-uq-xwR" id="acf-5X-Pgn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1047.8260869565217" y="133.92857142857142"/>
         </scene>
-        <!--앨범-->
+        <!--Navigation Controller-->
         <scene sceneID="l7X-wc-YKk">
             <objects>
-                <navigationController title="앨범" automaticallyAdjustsScrollViewInsets="NO" id="2Ri-MX-XFz" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Ri-MX-XFz" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hnl-hE-9jJ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
