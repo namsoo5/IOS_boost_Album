@@ -35,7 +35,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="210" height="225"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FGR-8F-law">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FGR-8F-law">
                                                     <rect key="frame" x="0.0" y="0.0" width="210" height="165"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="165" id="wIt-y3-B1R"/>

@@ -12,8 +12,11 @@ import Photos
 class ViewController: UIViewController, UICollectionViewDataSource {
     @IBOutlet weak var collectionView: UICollectionView!
    
+    var userAsset = [PHFetchResult<PHAsset>]()  //앨범별 분류된 사진저장
+    var albumName = [String]()  //앨범별 이름
+    var assetCount = [Int]()    //앨범별 개수
     
-    var fetchResult: PHFetchResult<PHAsset>!
+    //var fetchResult: PHFetchResult<PHAsset>!
     let imageManager: PHCachingImageManager = PHCachingImageManager()
 
     let half: Double = Double(UIScreen.main.bounds.width/2 - 20)
@@ -73,7 +76,9 @@ class ViewController: UIViewController, UICollectionViewDataSource {
 
     //cell 개수
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.fetchResult?.count ?? 0
+       // return self.fetchResult?.count ?? 0
+        
+        return self.userAsset.count
     }
     
     //cell 설정
@@ -83,10 +88,15 @@ class ViewController: UIViewController, UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let asset: PHAsset = fetchResult.object(at: indexPath.item)
+        //MARK: - 앨범리스트별 셀만들기
+        //let asset: PHAsset = fetchResult.object(at: indexPath.item)
         
-        //cell.setting(self.half) //imgview크기 설정
-        imageManager.requestImage(for: asset, targetSize: CGSize(width: half, height: half) , contentMode: .aspectFit , options: nil, resultHandler: {img, _ in
+        let img: PHAsset = userAsset[indexPath.item].object(at: 0)  //앨범별 처음사진가져오기
+        
+        cell.titleLabel.text = albumName[indexPath.item]
+        cell.numLabel.text = "\(assetCount[indexPath.item])"
+        
+        imageManager.requestImage(for: img, targetSize: CGSize(width: half, height: half) , contentMode: .aspectFill , options: nil, resultHandler: {img, _ in
             cell.imgView?.image = img
         })
         
@@ -96,17 +106,39 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     
     //사진가져오기
     func requestCollection(){
-        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: nil)
-        
-        guard let cameraRollCollection = cameraRoll.firstObject else {
-            return
-        }
-        
         let fetchOptions = PHFetchOptions()
         //최신순 정렬
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
+        
+        let fet = PHFetchOptions()
+        fet.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
+        
+        //MARK: - 전체앨범
+//        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum , subtype: .smartAlbumUserLibrary, options: nil)
+//
+//        guard let cameraRollCollection = cameraRoll.firstObject else {
+//            return
+//        }
+        
+        //MARK: - 앨범리스트
+        
+        //0:favorite, 1: paranomal 2: camera roll
+        //앨범리스트받기
+        let userAlbumList: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album , subtype: .any , options: fet)
+        let albumCount = userAlbumList.count
+        let userAlbum: [PHAssetCollection] = userAlbumList.objects(at: IndexSet(0..<albumCount))
+        
+        
+        //var userAsset = [PHFetchResult<PHAsset>]() 앨범별 분류해서 사진저장
+        for i in 0..<albumCount {
+            userAsset.append(PHAsset.fetchAssets(in: userAlbum[i], options: fetchOptions))  // 앨범마다 사진저장
+            print("\(i)번째 배열 \(userAlbum[i].localizedTitle!)의 사진개수 \(userAsset[i].count)")
+            assetCount.append(userAsset[i].count)  // 앨범마다 사진개수저장
+            albumName.append(userAlbum[i].localizedTitle!)  //앨범마다 이름저장
+        }
+        
         //결과를 변수에 저장
-        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
+//        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
     }
 }
 
