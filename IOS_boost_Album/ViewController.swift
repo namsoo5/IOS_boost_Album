@@ -91,6 +91,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         //MARK: - 앨범리스트별 셀만들기
         //let asset: PHAsset = fetchResult.object(at: indexPath.item)
         
+        
         let img: PHAsset = userAsset[indexPath.item].object(at: 0)  //앨범별 처음사진가져오기
         
         cell.titleLabel.text = albumName[indexPath.item]
@@ -110,26 +111,34 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         //최신순 정렬
         fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
         
-        let fet = PHFetchOptions()
-        fet.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
+        let listfet = PHFetchOptions()
+        listfet.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
         
         //MARK: - 전체앨범
-//        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum , subtype: .smartAlbumUserLibrary, options: nil)
-//
-//        guard let cameraRollCollection = cameraRoll.firstObject else {
-//            return
-//        }
+        // Camera Roll 목록
         
+        let cameraRoll: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .smartAlbum , subtype: .smartAlbumUserLibrary , options: nil)
+    
+        guard let cameraRollCollection = cameraRoll.firstObject else {
+            return
+        }
+        userAsset.append(PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)) //cameraroll 저장
+        albumName.append("Camera Roll")
+        assetCount.append(userAsset[0].count)
         //MARK: - 앨범리스트
-        
         //0:favorite, 1: paranomal 2: camera roll
         //앨범리스트받기
-        let userAlbumList: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album , subtype: .any , options: fet)
+        let userAlbumList: PHFetchResult<PHAssetCollection> = PHAssetCollection.fetchAssetCollections(with: .album , subtype: .any , options: listfet)
         let albumCount = userAlbumList.count
         let userAlbum: [PHAssetCollection] = userAlbumList.objects(at: IndexSet(0..<albumCount))
         
         
+        
+        
+        
+        
         //var userAsset = [PHFetchResult<PHAsset>]() 앨범별 분류해서 사진저장
+        // 인덱스 0에는 카메라롤 저장
         for i in 0..<albumCount {
             userAsset.append(PHAsset.fetchAssets(in: userAlbum[i], options: fetchOptions))  // 앨범마다 사진저장
             print("\(i)번째 배열 \(userAlbum[i].localizedTitle!)의 사진개수 \(userAsset[i].count)")
@@ -139,6 +148,30 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         
         //결과를 변수에 저장
 //        self.fetchResult = PHAsset.fetchAssets(in: cameraRollCollection, options: fetchOptions)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "picture" {
+            
+            guard let nextView : SecondViewController = segue.destination as? SecondViewController else {
+                return
+            }
+            
+            guard let cell: ListCollectionViewCell = sender as? ListCollectionViewCell else {
+                return
+            }
+            
+            //선택된 셀의 index
+            guard let index: IndexPath = self.collectionView.indexPath(for: cell) else {
+                return
+            }
+            
+            //선택된 앨범의 사진을 다음 뷰컨트롤러에 넘겨줌
+            nextView.pictures = userAsset[index.item]
+            
+            
+        }
     }
 }
 
