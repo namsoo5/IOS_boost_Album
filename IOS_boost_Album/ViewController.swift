@@ -141,8 +141,8 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         // 인덱스 0에는 카메라롤 저장
         for i in 0..<albumCount {
             userAsset.append(PHAsset.fetchAssets(in: userAlbum[i], options: fetchOptions))  // 앨범마다 사진저장
-            print("\(i)번째 배열 \(userAlbum[i].localizedTitle!)의 사진개수 \(userAsset[i].count)")
-            assetCount.append(userAsset[i].count)  // 앨범마다 사진개수저장
+            print("\(i)번째 배열 \(userAlbum[i].localizedTitle!)의 사진개수 \(userAsset[i+1].count)")
+            assetCount.append(userAsset[i+1].count)  // 앨범마다 사진개수저장
             albumName.append(userAlbum[i].localizedTitle!)  //앨범마다 이름저장
         }
         
@@ -169,7 +169,9 @@ class ViewController: UIViewController, UICollectionViewDataSource {
             
             //선택된 앨범의 사진을 다음 뷰컨트롤러에 넘겨줌
             nextView.pictures = userAsset[index.item]
-            
+            nextView.albumName = self.albumName[index.item]
+            nextView.albumindex = index.item
+            print(index.item)
             
         }
     }
