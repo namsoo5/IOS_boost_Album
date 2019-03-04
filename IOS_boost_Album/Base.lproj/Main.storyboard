@@ -109,7 +109,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Aex-Qk-8Hu">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="711"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s3M-Ie-AP9">
                                     <size key="itemSize" width="147" height="147"/>
@@ -146,18 +146,33 @@
                                     <outlet property="dataSource" destination="l8Q-8M-FP7" id="UxS-DK-QRV"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cea-W2-96v">
+                                <rect key="frame" x="0.0" y="799" width="414" height="63"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="63" id="Sd0-oi-iM7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="최신순"/>
+                                <connections>
+                                    <action selector="sortbtAction:" destination="l8Q-8M-FP7" eventType="touchUpInside" id="mE4-Hd-XFW"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cea-W2-96v" firstAttribute="leading" secondItem="YSn-Y0-D5m" secondAttribute="leading" id="KGc-wN-K5b"/>
+                            <constraint firstItem="cea-W2-96v" firstAttribute="top" secondItem="Aex-Qk-8Hu" secondAttribute="bottom" id="LyQ-Yg-brx"/>
+                            <constraint firstItem="cea-W2-96v" firstAttribute="bottom" secondItem="YSn-Y0-D5m" secondAttribute="bottom" id="NG1-45-To6"/>
                             <constraint firstItem="Aex-Qk-8Hu" firstAttribute="leading" secondItem="YSn-Y0-D5m" secondAttribute="leading" id="NjB-6i-iXN"/>
                             <constraint firstItem="Aex-Qk-8Hu" firstAttribute="top" secondItem="YSn-Y0-D5m" secondAttribute="top" id="Ulf-Ib-Luz"/>
-                            <constraint firstItem="YSn-Y0-D5m" firstAttribute="bottom" secondItem="Aex-Qk-8Hu" secondAttribute="bottom" id="Vxr-AP-xP0"/>
                             <constraint firstItem="YSn-Y0-D5m" firstAttribute="trailing" secondItem="Aex-Qk-8Hu" secondAttribute="trailing" id="c5B-ZQ-uxn"/>
+                            <constraint firstItem="YSn-Y0-D5m" firstAttribute="trailing" secondItem="cea-W2-96v" secondAttribute="trailing" id="z4I-Qr-830"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YSn-Y0-D5m"/>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="Aex-Qk-8Hu" id="nx9-77-fte"/>
+                        <outlet property="sortButton" destination="cea-W2-96v" id="fGq-97-3O7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVJ-PW-xcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
