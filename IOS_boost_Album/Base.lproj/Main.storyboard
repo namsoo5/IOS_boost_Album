@@ -108,8 +108,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Aex-Qk-8Hu">
-                                <rect key="frame" x="0.0" y="88" width="414" height="711"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Aex-Qk-8Hu">
+                                <rect key="frame" x="0.0" y="88" width="414" height="662"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s3M-Ie-AP9">
                                     <size key="itemSize" width="147" height="147"/>
@@ -147,38 +148,45 @@
                                     <outlet property="delegate" destination="l8Q-8M-FP7" id="jSC-kO-pi9"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cea-W2-96v">
-                                <rect key="frame" x="0.0" y="799" width="414" height="63"/>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHY-k3-Mm9">
+                                <rect key="frame" x="0.0" y="813" width="414" height="60"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="63" id="Sd0-oi-iM7"/>
+                                    <constraint firstAttribute="height" constant="60" id="OnR-Si-t88"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="최신순"/>
-                                <connections>
-                                    <action selector="sortbtAction:" destination="l8Q-8M-FP7" eventType="touchUpInside" id="mE4-Hd-XFW"/>
-                                </connections>
-                            </button>
+                                <items>
+                                    <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="h1Q-tc-Lv1"/>
+                                    <barButtonItem enabled="NO" systemItem="action" id="h5D-w6-NA6"/>
+                                    <barButtonItem width="120" style="plain" systemItem="fixedSpace" id="RwU-76-PqM"/>
+                                    <barButtonItem title="최신순" id="nhE-hk-S0s">
+                                        <connections>
+                                            <action selector="sortToolbarbt:" destination="l8Q-8M-FP7" id="9yH-JN-2Hx"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="120" style="plain" systemItem="fixedSpace" id="Kmt-dv-6Bf"/>
+                                    <barButtonItem enabled="NO" systemItem="trash" id="Hwd-jS-K1r"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="cea-W2-96v" firstAttribute="leading" secondItem="YSn-Y0-D5m" secondAttribute="leading" id="KGc-wN-K5b"/>
-                            <constraint firstItem="cea-W2-96v" firstAttribute="top" secondItem="Aex-Qk-8Hu" secondAttribute="bottom" id="LyQ-Yg-brx"/>
-                            <constraint firstItem="cea-W2-96v" firstAttribute="bottom" secondItem="YSn-Y0-D5m" secondAttribute="bottom" id="NG1-45-To6"/>
-                            <constraint firstItem="Aex-Qk-8Hu" firstAttribute="leading" secondItem="YSn-Y0-D5m" secondAttribute="leading" id="NjB-6i-iXN"/>
-                            <constraint firstItem="Aex-Qk-8Hu" firstAttribute="top" secondItem="YSn-Y0-D5m" secondAttribute="top" id="Ulf-Ib-Luz"/>
-                            <constraint firstItem="YSn-Y0-D5m" firstAttribute="trailing" secondItem="Aex-Qk-8Hu" secondAttribute="trailing" id="c5B-ZQ-uxn"/>
-                            <constraint firstItem="YSn-Y0-D5m" firstAttribute="trailing" secondItem="cea-W2-96v" secondAttribute="trailing" id="z4I-Qr-830"/>
+                            <constraint firstAttribute="trailing" secondItem="FHY-k3-Mm9" secondAttribute="trailing" id="1e0-bz-s8M"/>
+                            <constraint firstItem="FHY-k3-Mm9" firstAttribute="leading" secondItem="eNR-NQ-9lh" secondAttribute="leading" id="DQt-Lg-Npz"/>
+                            <constraint firstAttribute="bottom" secondItem="FHY-k3-Mm9" secondAttribute="bottom" constant="23" id="Gw3-eI-dv3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YSn-Y0-D5m"/>
                     </view>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="actionToolbarItem" destination="h5D-w6-NA6" id="R7b-gg-NKM"/>
                         <outlet property="collectionView" destination="Aex-Qk-8Hu" id="nx9-77-fte"/>
-                        <outlet property="sortButton" destination="cea-W2-96v" id="fGq-97-3O7"/>
+                        <outlet property="sortToolbarItem" destination="nhE-hk-S0s" id="jua-4n-Ifh"/>
+                        <outlet property="trashToolbarItem" destination="Hwd-jS-K1r" id="uc9-Y8-F4V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVJ-PW-xcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1705.7971014492755" y="130.58035714285714"/>
+            <point key="canvasLocation" x="1799" y="134"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l7X-wc-YKk">
@@ -190,7 +198,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ljZ-F1-Di2">
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="9X1-tT-Da6">
                         <autoresizingMask key="autoresizingMask"/>
                     </toolbar>
                     <connections>

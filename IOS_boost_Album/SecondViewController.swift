@@ -11,9 +11,12 @@ import Photos
 
 class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
+    @IBOutlet weak var sortToolbarItem: UIBarButtonItem!
+    @IBOutlet weak var actionToolbarItem: UIBarButtonItem!
+    @IBOutlet weak var trashToolbarItem: UIBarButtonItem!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    @IBOutlet weak var sortButton: UIButton!
+
     var buttonstatus = false
     var pictures: PHFetchResult<PHAsset>!
     var albumName: String!
@@ -63,6 +66,8 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //선택버튼
     @objc func selectbtAction(_ sender: UIBarButtonItem) -> Void {
+        self.actionToolbarItem.isEnabled = true // 툴바버튼 활성화
+        self.trashToolbarItem.isEnabled = true
         self.navigationItem.title = "항목선택"
         self.navigationItem.hidesBackButton = true //백버튼숨김
         //취소기능 네비게이션아이템추가
@@ -86,14 +91,14 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    
-    
-    @IBAction func sortbtAction(_ sender: Any) {
+
+    //toolbar item중 정렬버튼클릭시
+    @IBAction func sortToolbarbt(_ sender: Any)  {
         
         buttonstatus = !buttonstatus
         
         if buttonstatus { //최신순클릭시
-            sortButton.setTitle("과거순", for: UIControl.State.normal)
+            sortToolbarItem.title = "과거순"  //툴바 타이틀변경
             let reversecreationDateFet = PHFetchOptions()
             reversecreationDateFet.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
             
@@ -125,7 +130,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             collectionView.reloadData()
             
         } else { //과거순일때 클릭시
-            sortButton.setTitle("최신순", for: UIControl.State.normal)
+            sortToolbarItem.title = "최신순"
             
             let creationDateFet = PHFetchOptions()
             creationDateFet.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: true)]
