@@ -9,7 +9,7 @@
 import UIKit
 import Photos
 
-class SecondViewController: UIViewController, UICollectionViewDataSource {
+class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -22,6 +22,10 @@ class SecondViewController: UIViewController, UICollectionViewDataSource {
     let imageManager: PHCachingImageManager = PHCachingImageManager()
     let half: Double = Double(UIScreen.main.bounds.width/3-15)
     
+    //navigation right button
+    var myrightBarButtonItem: UIBarButtonItem!
+   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,18 +36,56 @@ class SecondViewController: UIViewController, UICollectionViewDataSource {
         flowlayout.minimumLineSpacing = 20
         flowlayout.minimumInteritemSpacing = 20 //같은행끼리 간격
         self.collectionView.collectionViewLayout = flowlayout
+       
+       //큰 타이틀기능 끄기
+        self.navigationController?.navigationBar.prefersLargeTitles = false
         
+        //타이틀이름 바꾸기
+        self.navigationItem.title = albumName
         
         //오른쪽 네비게이션바 아이템만들기
-        let rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain , target: self, action: #selector(selectbtAction(_:)))
+        myrightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain , target: self, action: #selector(selectbtAction(_:)))
         
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        self.navigationItem.rightBarButtonItem = myrightBarButtonItem
+        
+        
     }
     
+    //선택시 흐리게보이기
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.alpha = 0.5
+    }
     
+    //미선택시 원래색으로
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.alpha = 1
+    }
+    
+    //선택버튼
     @objc func selectbtAction(_ sender: UIBarButtonItem) -> Void {
-        print("click")
+        self.navigationItem.title = "항목선택"
+        self.navigationItem.hidesBackButton = true //백버튼숨김
+        //취소기능 네비게이션아이템추가
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "취소", style: .plain , target: self, action: #selector(cancelbtAction(_:)))
+        
+        //다중선택활성화
+        self.collectionView.allowsMultipleSelection = true
+        
+
     }
+    
+    //취소버튼
+    @objc func cancelbtAction(_ sender: UIBarButtonItem) -> Void {
+        self.navigationItem.title = "선택"
+        self.navigationItem.hidesBackButton = false //백버튼활성화
+        self.navigationItem.rightBarButtonItem = myrightBarButtonItem
+        //다중선택비활성
+        self.collectionView.allowsMultipleSelection = false
+        //선택값 삭제위한 리로드
+        self.collectionView.reloadData()
+        
+    }
+    
     
     
     @IBAction func sortbtAction(_ sender: Any) {
@@ -137,6 +179,6 @@ class SecondViewController: UIViewController, UICollectionViewDataSource {
         return cell
     }
     
-    
+
     
 }

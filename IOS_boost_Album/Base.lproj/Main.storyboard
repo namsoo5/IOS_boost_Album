@@ -144,6 +144,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="l8Q-8M-FP7" id="UxS-DK-QRV"/>
+                                    <outlet property="delegate" destination="l8Q-8M-FP7" id="jSC-kO-pi9"/>
                                 </connections>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cea-W2-96v">

@@ -22,11 +22,17 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     let half: Double = Double(UIScreen.main.bounds.width/2 - 20)
    
 
+    override func viewWillAppear(_ animated: Bool) {
+        //돌아올때마다 적용시키기위함
+        //큰글씨에서 스크롤시 작은글씨로 타이틀바 표시
+        self.navigationController?.navigationBar.prefersLargeTitles = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
          let heightsize: Double = half + 40
-        //큰글씨에서 스크롤시 작은글씨로 타이틀바 표시
-        self.navigationController?.navigationBar.prefersLargeTitles = true
+     
+        
         self.navigationItem.title = "앨범"
         
         //layout 설정
