@@ -9,7 +9,8 @@
 import UIKit
 import Photos
 
-class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class SecondViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, PHPhotoLibraryChangeObserver
+ {
     
     @IBOutlet weak var sortToolbarItem: UIBarButtonItem!
     @IBOutlet weak var actionToolbarItem: UIBarButtonItem!
@@ -28,6 +29,8 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     //navigation right button
     var myrightBarButtonItem: UIBarButtonItem!
    
+    //삭제할 이미지인덱스저장
+    var delete = [Int]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +49,9 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         //타이틀이름 바꾸기
         self.navigationItem.title = albumName
         
+        //포토라이브러리 변화시 딜리게이트 호출
+        PHPhotoLibrary.shared().register(self)
+        
         //오른쪽 네비게이션바 아이템만들기
         myrightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain , target: self, action: #selector(selectbtAction(_:)))
         
@@ -54,17 +60,10 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         
     }
     
-    //선택시 흐리게보이기
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.alpha = 0.5
-    }
     
-    //미선택시 원래색으로
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        collectionView.cellForItem(at: indexPath)?.alpha = 1
-    }
     
-    //선택버튼
+    //MARK: - Navigation 선택버튼
+    //네비게이션바 선택버튼
     @objc func selectbtAction(_ sender: UIBarButtonItem) -> Void {
         self.actionToolbarItem.isEnabled = true // 툴바버튼 활성화
         self.trashToolbarItem.isEnabled = true
@@ -79,11 +78,16 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
 
     }
     
-    //취소버튼
+    //네비게이션바 취소버튼
     @objc func cancelbtAction(_ sender: UIBarButtonItem) -> Void {
+        self.actionToolbarItem.isEnabled = false // 툴바버튼 비활성화
+        self.trashToolbarItem.isEnabled = false
         self.navigationItem.title = "선택"
-        self.navigationItem.hidesBackButton = false //백버튼활성화
+        self.navigationItem.hidesBackButton = false //백버튼비활성화
         self.navigationItem.rightBarButtonItem = myrightBarButtonItem
+        
+        //저장배열 초기화
+        self.delete = [Int]()
         //다중선택비활성
         self.collectionView.allowsMultipleSelection = false
         //선택값 삭제위한 리로드
@@ -92,6 +96,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     }
     
 
+    //MARK: - Toolbaraction
     //toolbar item중 정렬버튼클릭시
     @IBAction func sortToolbarbt(_ sender: Any)  {
         
@@ -163,7 +168,24 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
     
+    //toolbar actionitem 클릭시
+    @IBAction func actionItemClick(_ sender: Any) {
+        
+    }
     
+    //toolbar trash 클릭시
+    @IBAction func trashItemClick(_ sender: Any) {
+        
+        var asset = [PHAsset]()
+        for i in delete {
+            asset.append(pictures[i])
+        }
+        PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.deleteAssets(asset as NSFastEnumeration)}, completionHandler: nil)
+
+
+    }
+    
+    //MARK: - collectionView
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return pictures.count
     }
@@ -180,10 +202,47 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         imageManager.requestImage(for: picture, targetSize: CGSize(width: half, height: half), contentMode: .aspectFill, options: nil, resultHandler: {img, _ in
             cell.imageView?.image = img
         })
+        cell.backgroundColor = UIColor.white //선택초기화
         
         return cell
     }
     
+    //선택시 흐리게보이기
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.alpha = 0.7
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.black
+        
+        //선택된 배열인덱스 저장 중복시 저장안함
+        if !delete.contains(indexPath.item) {
+            delete.append(indexPath.item)
+        }
+        print(delete)
+    }
+    
+    //미선택시 원래색으로
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        collectionView.cellForItem(at: indexPath)?.alpha = 1
+        collectionView.cellForItem(at: indexPath)?.backgroundColor = UIColor.white
+        
+        //선택을 취소한 배열 삭제
+        let index: Int! = delete.firstIndex(of: indexPath.item)
+        delete.remove(at: index)
+        print("delete: \(delete)")
+    }
+
+    //MARK: - PHPhotoLibraryChangeObserver
+    // 포토라이브러리 변화시
+    func photoLibraryDidChange(_ changeInstance: PHChange) {
+        guard let changes = changeInstance.changeDetails(for: pictures)
+            else { return }
+        
+        pictures = changes.fetchResultAfterChanges  //바뀐값 다시 저장
+        
+        //바꼇으면 컬렉션뷰 다시 리로드
+        OperationQueue.main.addOperation {
+            self.collectionView.reloadData()
+        }
+    }
 
     
 }

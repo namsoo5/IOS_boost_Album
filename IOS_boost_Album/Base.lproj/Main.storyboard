@@ -127,15 +127,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ch9-D8-Cx4">
-                                                    <rect key="frame" x="0.0" y="0.0" width="147" height="147"/>
+                                                    <rect key="frame" x="5" y="5" width="137" height="137"/>
                                                 </imageView>
                                             </subviews>
                                         </view>
-                                        <color key="backgroundColor" red="0.6779986227" green="0.83476162789999997" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstItem="ch9-D8-Cx4" firstAttribute="width" secondItem="0Ra-yh-epX" secondAttribute="width" id="UTF-xn-nIq"/>
+                                            <constraint firstAttribute="trailing" secondItem="ch9-D8-Cx4" secondAttribute="trailing" constant="5" id="Dx4-nx-RB4"/>
+                                            <constraint firstAttribute="bottom" secondItem="ch9-D8-Cx4" secondAttribute="bottom" constant="5" id="Eh9-w3-WEh"/>
+                                            <constraint firstItem="ch9-D8-Cx4" firstAttribute="leading" secondItem="0Ra-yh-epX" secondAttribute="leading" constant="5" id="Onb-1z-BzH"/>
+                                            <constraint firstItem="ch9-D8-Cx4" firstAttribute="top" secondItem="0Ra-yh-epX" secondAttribute="top" constant="5" id="Ueq-qm-RJi"/>
                                             <constraint firstItem="ch9-D8-Cx4" firstAttribute="centerY" secondItem="0Ra-yh-epX" secondAttribute="centerY" id="VG6-oZ-PTe"/>
-                                            <constraint firstItem="ch9-D8-Cx4" firstAttribute="height" secondItem="0Ra-yh-epX" secondAttribute="height" id="YUD-WW-7U3"/>
                                             <constraint firstItem="ch9-D8-Cx4" firstAttribute="centerX" secondItem="0Ra-yh-epX" secondAttribute="centerX" id="ayI-Ls-Bah"/>
                                         </constraints>
                                         <connections>
@@ -155,7 +156,11 @@
                                 </constraints>
                                 <items>
                                     <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="h1Q-tc-Lv1"/>
-                                    <barButtonItem enabled="NO" systemItem="action" id="h5D-w6-NA6"/>
+                                    <barButtonItem enabled="NO" systemItem="action" id="h5D-w6-NA6">
+                                        <connections>
+                                            <action selector="actionItemClick:" destination="l8Q-8M-FP7" id="6fx-Lr-D4g"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem width="120" style="plain" systemItem="fixedSpace" id="RwU-76-PqM"/>
                                     <barButtonItem title="최신순" id="nhE-hk-S0s">
                                         <connections>
@@ -163,7 +168,11 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem width="120" style="plain" systemItem="fixedSpace" id="Kmt-dv-6Bf"/>
-                                    <barButtonItem enabled="NO" systemItem="trash" id="Hwd-jS-K1r"/>
+                                    <barButtonItem enabled="NO" systemItem="trash" id="Hwd-jS-K1r">
+                                        <connections>
+                                            <action selector="trashItemClick:" destination="l8Q-8M-FP7" id="Ozc-jE-nlW"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
