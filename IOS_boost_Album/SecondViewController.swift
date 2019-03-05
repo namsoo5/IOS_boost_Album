@@ -33,14 +33,22 @@ class SecondViewController: UIViewController, UICollectionViewDataSource {
         flowlayout.minimumInteritemSpacing = 20 //같은행끼리 간격
         self.collectionView.collectionViewLayout = flowlayout
         
+        
+        //오른쪽 네비게이션바 아이템만들기
+        let rightBarButtonItem = UIBarButtonItem(title: "선택", style: .plain , target: self, action: #selector(selectbtAction(_:)))
+        
+        self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
+    
+    
+    @objc func selectbtAction(_ sender: UIBarButtonItem) -> Void {
+        print("click")
+    }
+    
     
     @IBAction func sortbtAction(_ sender: Any) {
         
         buttonstatus = !buttonstatus
-        
-        
-        
         
         if buttonstatus { //최신순클릭시
             sortButton.setTitle("과거순", for: UIControl.State.normal)
@@ -58,7 +66,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource {
                 
             } else {
                 /* 사용자 생성앨범 정렬구현*/
-               
+                
                 let listfet = PHFetchOptions()
                 listfet.sortDescriptors = [NSSortDescriptor(key: "localizedTitle", ascending: false)]
                 
