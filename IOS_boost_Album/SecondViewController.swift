@@ -32,6 +32,9 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     //삭제할 이미지인덱스저장
     var delete = [Int]()
     
+    // 다중선택시 클릭할때 넘어가지않도록
+     var stop: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -65,6 +68,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     //MARK: - Navigation 선택버튼
     //네비게이션바 선택버튼
     @objc func selectbtAction(_ sender: UIBarButtonItem) -> Void {
+        self.stop = true // 터치시 다음뷰로 안넘어가도록
         self.actionToolbarItem.isEnabled = true // 툴바버튼 활성화
         self.trashToolbarItem.isEnabled = true
         self.navigationItem.title = "항목선택"
@@ -80,6 +84,7 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     
     //네비게이션바 취소버튼
     @objc func cancelbtAction(_ sender: UIBarButtonItem) -> Void {
+        self.stop = false // 다음뷰로 넘어갈수있음
         self.actionToolbarItem.isEnabled = false // 툴바버튼 비활성화
         self.trashToolbarItem.isEnabled = false
         self.navigationItem.title = "선택"
@@ -217,6 +222,20 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             delete.append(indexPath.item)
         }
         print(delete)
+        
+        if !stop {
+            //다중선택아닐떄만 (단일선택시에만) 다음뷰컨트롤러로 이동
+            guard let vc = storyboard?.instantiateViewController(withIdentifier: "detailView") else {
+                print("View controller not found")
+                return
+            }
+            //뷰컨트롤러에 접근하기위한 변수
+            let thirdvc: ThridViewController = vc as! ThridViewController
+            //셀에 접근하기위한 변수
+            let cell:PictureCollectionViewCell = collectionView.cellForItem(at: indexPath) as! PictureCollectionViewCell
+            thirdvc.picture = cell.imageView.image
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
     
     //미선택시 원래색으로
@@ -244,5 +263,20 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detail" {
+            
+            guard let nextView: ThridViewController = segue.destination as? ThridViewController else {
+                return
+            }
+            
+            guard let cell: PictureCollectionViewCell = sender as? PictureCollectionViewCell else {
+                return
+            }
+            
+            nextView.picture = cell.imageView.image
+            
+        }
+    }
     
 }

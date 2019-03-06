@@ -108,9 +108,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Aex-Qk-8Hu">
-                                <rect key="frame" x="0.0" y="88" width="414" height="662"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Aex-Qk-8Hu">
+                                <rect key="frame" x="0.0" y="88" width="414" height="735"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="s3M-Ie-AP9">
                                     <size key="itemSize" width="147" height="147"/>
@@ -150,9 +149,9 @@
                                 </connections>
                             </collectionView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FHY-k3-Mm9">
-                                <rect key="frame" x="0.0" y="813" width="414" height="60"/>
+                                <rect key="frame" x="0.0" y="823" width="414" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="OnR-Si-t88"/>
+                                    <constraint firstAttribute="height" constant="50" id="OnR-Si-t88"/>
                                 </constraints>
                                 <items>
                                     <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="h1Q-tc-Lv1"/>
@@ -181,6 +180,10 @@
                             <constraint firstAttribute="trailing" secondItem="FHY-k3-Mm9" secondAttribute="trailing" id="1e0-bz-s8M"/>
                             <constraint firstItem="FHY-k3-Mm9" firstAttribute="leading" secondItem="eNR-NQ-9lh" secondAttribute="leading" id="DQt-Lg-Npz"/>
                             <constraint firstAttribute="bottom" secondItem="FHY-k3-Mm9" secondAttribute="bottom" constant="23" id="Gw3-eI-dv3"/>
+                            <constraint firstItem="Aex-Qk-8Hu" firstAttribute="top" secondItem="YSn-Y0-D5m" secondAttribute="top" id="VCW-FH-xNf"/>
+                            <constraint firstItem="Aex-Qk-8Hu" firstAttribute="leading" secondItem="YSn-Y0-D5m" secondAttribute="leading" id="aBu-0v-W6R"/>
+                            <constraint firstItem="Aex-Qk-8Hu" firstAttribute="trailing" secondItem="YSn-Y0-D5m" secondAttribute="trailing" id="ulp-7V-uNM"/>
+                            <constraint firstItem="FHY-k3-Mm9" firstAttribute="top" secondItem="Aex-Qk-8Hu" secondAttribute="bottom" id="ydD-9R-k6o"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="YSn-Y0-D5m"/>
                     </view>
@@ -196,6 +199,52 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVJ-PW-xcx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1799" y="134"/>
+        </scene>
+        <!--Thrid View Controller-->
+        <scene sceneID="bCy-pa-w5w">
+            <objects>
+                <viewController storyboardIdentifier="detailView" id="EY5-ja-AfT" customClass="ThridViewController" customModule="IOS_boost_Album" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gCU-uE-MzE">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vT0-Kw-x52">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SQc-I7-mKC">
+                                <rect key="frame" x="0.0" y="822" width="414" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="GTt-dQ-COZ"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem width="20" style="plain" systemItem="fixedSpace" id="LDs-Kd-QM9"/>
+                                    <barButtonItem systemItem="action" id="sYt-1J-xnJ"/>
+                                    <barButtonItem width="120" style="plain" systemItem="fixedSpace" id="Hf5-8h-Xbb"/>
+                                    <barButtonItem title="좋아요" id="XJ2-Ip-Xm4"/>
+                                    <barButtonItem width="120" style="plain" systemItem="fixedSpace" id="CWz-P1-30a"/>
+                                    <barButtonItem systemItem="trash" id="gFp-VN-MO7"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vT0-Kw-x52" firstAttribute="leading" secondItem="cno-LI-45j" secondAttribute="leading" id="8Wr-Zz-qx6"/>
+                            <constraint firstAttribute="trailing" secondItem="SQc-I7-mKC" secondAttribute="trailing" id="THJ-83-CvN"/>
+                            <constraint firstItem="SQc-I7-mKC" firstAttribute="leading" secondItem="gCU-uE-MzE" secondAttribute="leading" id="Xmr-Wf-9RW"/>
+                            <constraint firstItem="vT0-Kw-x52" firstAttribute="top" secondItem="cno-LI-45j" secondAttribute="top" id="jrA-Iy-hMz"/>
+                            <constraint firstAttribute="bottom" secondItem="SQc-I7-mKC" secondAttribute="bottom" constant="24" id="t0s-XH-x5q"/>
+                            <constraint firstItem="cno-LI-45j" firstAttribute="bottom" secondItem="vT0-Kw-x52" secondAttribute="bottom" id="vUQ-vz-6Lq"/>
+                            <constraint firstItem="cno-LI-45j" firstAttribute="trailing" secondItem="vT0-Kw-x52" secondAttribute="trailing" id="xfT-9e-sOM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cno-LI-45j"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="vT0-Kw-x52" id="oMf-HV-LGt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vPx-du-RXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2514" y="135"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l7X-wc-YKk">

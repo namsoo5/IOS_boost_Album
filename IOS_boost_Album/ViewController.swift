@@ -20,7 +20,6 @@ class ViewController: UIViewController, UICollectionViewDataSource {
     let imageManager: PHCachingImageManager = PHCachingImageManager()
 
     let half: Double = Double(UIScreen.main.bounds.width/2 - 20)
-   
 
     override func viewWillAppear(_ animated: Bool) {
         //돌아올때마다 적용시키기위함
@@ -76,7 +75,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
             print("접근 제한")
         }
         
-        //PHPhotoLibrary.shared().register(self) //포토라이브러리 변화시 딜리게이트 호출
+//        PHPhotoLibrary.shared().register(self) //포토라이브러리 변화시 딜리게이트 호출
     }
 
 
@@ -96,7 +95,6 @@ class ViewController: UIViewController, UICollectionViewDataSource {
         
         //MARK: - 앨범리스트별 셀만들기
         //let asset: PHAsset = fetchResult.object(at: indexPath.item)
-        
         
         let img: PHAsset = userAsset[indexPath.item].object(at: 0)  //앨범별 처음사진가져오기
         
@@ -164,6 +162,7 @@ class ViewController: UIViewController, UICollectionViewDataSource {
                 return
             }
             
+            //해당(눌린)셀불러오기
             guard let cell: ListCollectionViewCell = sender as? ListCollectionViewCell else {
                 return
             }
