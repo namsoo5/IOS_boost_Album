@@ -182,9 +182,12 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
     @IBAction func trashItemClick(_ sender: Any) {
         
         var asset = [PHAsset]()
+        //선택된 모든 사진들
         for i in delete {
             asset.append(pictures[i])
         }
+        
+        //삭제 다이얼로그
         PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.deleteAssets(asset as NSFastEnumeration)}, completionHandler: nil)
 
 
@@ -234,6 +237,8 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
             //셀에 접근하기위한 변수
             let cell:PictureCollectionViewCell = collectionView.cellForItem(at: indexPath) as! PictureCollectionViewCell
             thirdvc.picture = cell.imageView.image
+            //asset파일 넘겨주기
+            thirdvc.asset = pictures[indexPath.item]
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -263,20 +268,20 @@ class SecondViewController: UIViewController, UICollectionViewDataSource, UIColl
         }
     }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "detail" {
-            
-            guard let nextView: ThridViewController = segue.destination as? ThridViewController else {
-                return
-            }
-            
-            guard let cell: PictureCollectionViewCell = sender as? PictureCollectionViewCell else {
-                return
-            }
-            
-            nextView.picture = cell.imageView.image
-            
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "detail" {
+//
+//            guard let nextView: ThridViewController = segue.destination as? ThridViewController else {
+//                return
+//            }
+//
+//            guard let cell: PictureCollectionViewCell = sender as? PictureCollectionViewCell else {
+//                return
+//            }
+//
+//            nextView.picture = cell.imageView.image
+//
+//        }
+//    }
     
 }

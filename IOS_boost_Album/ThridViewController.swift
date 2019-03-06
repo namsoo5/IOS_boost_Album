@@ -7,28 +7,47 @@
 //
 
 import UIKit
+import Photos
 
-class ThridViewController: UIViewController {
+class ThridViewController: UIViewController, UIScrollViewDelegate {
 
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     var picture: UIImage!
+    var asset: PHAsset!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        scrollView.minimumZoomScale = 1.0
+        scrollView.maximumZoomScale = 3.0
         imageView.image = picture
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    //삭제버튼누를시
+    @IBAction func trashbtClick(_ sender: Any) {
+       //삭제 다이얼로그
+        PHPhotoLibrary.shared().performChanges({PHAssetChangeRequest.deleteAssets([self.asset] as NSArray)}, completionHandler: nil)
+        
+        self.navigationController?.popViewController(animated: true)
     }
-    */
-
+    
+    //줌할 뷰지정
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    //줌시작씨 배경 검은색으로 변경
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        scrollView.backgroundColor = UIColor.black
+    }
+    
+    
+    //줌끝날때 원래사이즈로 돌아왔으면 다시배경 흰색으로바꿔줌
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        if scale == 1.0 {
+            scrollView.backgroundColor = UIColor.white
+        }
+    }
 }
