@@ -12,6 +12,7 @@ import Photos
 class ThridViewController: UIViewController, UIScrollViewDelegate {
 
     
+    @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
     var picture: UIImage!
@@ -41,13 +42,17 @@ class ThridViewController: UIViewController, UIScrollViewDelegate {
     //줌시작씨 배경 검은색으로 변경
     func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
         scrollView.backgroundColor = UIColor.black
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+        self.toolbar.isHidden = true
+        
     }
-    
     
     //줌끝날때 원래사이즈로 돌아왔으면 다시배경 흰색으로바꿔줌
     func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
         if scale == 1.0 {
             scrollView.backgroundColor = UIColor.white
         }
+         self.navigationController?.setNavigationBarHidden(false, animated: true)
+        self.toolbar.isHidden = false
     }
 }

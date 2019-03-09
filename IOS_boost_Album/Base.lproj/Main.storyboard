@@ -188,7 +188,7 @@
                         <viewLayoutGuide key="safeArea" id="YSn-Y0-D5m"/>
                     </view>
                     <toolbarItems/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="actionToolbarItem" destination="h5D-w6-NA6" id="R7b-gg-NKM"/>
                         <outlet property="collectionView" destination="Aex-Qk-8Hu" id="nx9-77-fte"/>
@@ -254,9 +254,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cno-LI-45j"/>
                     </view>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="vT0-Kw-x52" id="oMf-HV-LGt"/>
                         <outlet property="scrollView" destination="l12-bm-SJq" id="D30-jD-oWp"/>
+                        <outlet property="toolbar" destination="SQc-I7-mKC" id="25N-Aj-7Ce"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vPx-du-RXB" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -268,6 +270,7 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2Ri-MX-XFz" sceneMemberID="viewController">
                     <toolbarItems/>
+                    <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="hnl-hE-9jJ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
